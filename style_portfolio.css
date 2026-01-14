@@ -1,0 +1,205 @@
+/* ===== Custom CSS for Bootstrap Portfolio =====
+   This file contains minimal custom styling
+   Most styling comes from Bootstrap utility classes */
+
+/* Font family override - Applied to all elements */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Narrow container for better readability - Override Bootstrap default */
+.container {
+    max-width: 1000px !important;
+}
+
+/* Custom brand color - Using #ff014f as primary color
+   .text-primary and .btn-primary will use this color */
+:root {
+    --bs-primary: #ff014f;
+    --bs-primary-rgb: 255, 1, 79;
+}
+
+.btn-primary {
+    background-color: #ff014f;
+    border-color: #ff014f;
+}
+
+.btn-primary:hover {
+    background-color: #d4013f;
+    border-color: #d4013f;
+}
+
+.text-primary {
+    color: #ff014f !important;
+}
+
+/* Social and skill icons - Custom sizing and hover effects */
+.social-icon {
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    color: #ff014f;
+    box-shadow: 0 5px 20px rgba(255, 1, 79, 0.3) !important;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Active nav link styling */
+.nav-link.active {
+    color: #ff014f !important;
+}
+
+.nav-link:hover {
+    color: #ff014f !important;
+}
+
+/* Project cards styling */
+.project-card {
+    transition: transform 0.2s;
+}
+
+.project-image-container {
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.project-image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.language-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Filter buttons */
+.filter-btn.active {
+    background-color: #ff014f;
+    color: white;
+    border-color: #ff014f;
+}
+
+.filter-btn {
+    transition: all 0.2s;
+}
+
+/* Hero section gradient background */
+.hero-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Gradient text effect */
+.gradient-text {
+    background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Card hover effect for better interactivity */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+/* Progress bars styling */
+.progress {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    transition: width 1s ease-in-out;
+}
+
+/* PDF Viewer styling */
+#pdf-viewer {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Social icons improved hover */
+.social-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-icon:hover {
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* Contact and blog section backgrounds */
+.contact-section {
+    background: linear-gradient(135deg, #ffeef8 0%, #ffe8f0 100%);
+}
+
+.blog-section {
+    background: linear-gradient(135deg, #e0f7fa 0%, #e1f5fe 100%);
+}
+
+/* Navbar shadow on scroll */
+.navbar {
+    transition: box-shadow 0.3s ease;
+}
+
+/* Timeline styling for resume */
+.timeline .border-bottom:last-child {
+    border-bottom: none !important;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff014f;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d4013f;
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Muhammed Feyiz Güneş</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="style_portfolio.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
+                <img src="https://ui-avatars.com/api/?name=MF&background=ff014f&color=fff&size=50" 
+                     alt="Profile" class="rounded-circle" width="50" height="50">
+                <span class="fw-bold fs-4">MFG</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-3">
+                    <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                    <li class="nav-item"><a href="projects.html" class="nav-link">PROJECTS</a></li>
+                    <li class="nav-item"><a href="resume.html" class="nav-link">RESUME</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">BLOG</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">CONTACT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Page -->
+    <section class="py-5 contact-section" style="min-height: 80vh;">
+        <div class="container">
+            <h1 class="text-center display-4 fw-bold mb-3">Get In Touch</h1>
+            <p class="text-center text-muted mb-5 lead">Feel free to reach out for collaborations or just a friendly chat</p>
+            
+            <div class="row g-5">
+                <!-- Left: Contact Info -->
+                <div class="col-lg-5">
+                    <div class="card shadow border-0 h-100">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bold mb-4">Contact Information</h3>
+                            
+                            <div class="d-flex flex-column gap-4">
+                                <!-- Email -->
+                                <div class="d-flex gap-3 align-items-start">
+                                    <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                                        <i class="fas fa-envelope fs-4 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-semibold mb-1">Email</h5>
+                                        <a href="mailto:mfeyizgunes@gmail.com" class="text-muted text-decoration-none">
+                                            mfeyizgunes@gmail.com
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Phone -->
+                                <div class="d-flex gap-3 align-items-start">
+                                    <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                                        <i class="fas fa-phone fs-4 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-semibold mb-1">Phone</h5>
+                                        <a href="tel:+905437461243" class="text-muted text-decoration-none">
+                                            +90 543 746 12 43
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Location -->
+                                <div class="d-flex gap-3 align-items-start">
+                                    <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                                        <i class="fas fa-map-marker-alt fs-4 text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-semibold mb-1">Location</h5>
+                                        <p class="text-muted mb-0">Istanbul, Turkey</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Social Links -->
+                            <div class="mt-5">
+                                <h5 class="fw-semibold mb-3">Follow Me</h5>
+                                <div class="d-flex gap-3">
+                                    <a href="https://github.com/mfeyiz" target="_blank" 
+                                       class="social-icon bg-white rounded-2 shadow-sm d-flex align-items-center justify-content-center">
+                                        <i class="fab fa-github fs-5"></i>
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/mfeyizgunes/" target="_blank" 
+                                       class="social-icon bg-white rounded-2 shadow-sm d-flex align-items-center justify-content-center">
+                                        <i class="fab fa-linkedin-in fs-5"></i>
+                                    </a>
+                                    <a href="#" class="social-icon bg-white rounded-2 shadow-sm d-flex align-items-center justify-content-center">
+                                        <i class="fab fa-twitter fs-5"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Contact Form -->
+                <div class="col-lg-7">
+                    <div class="card shadow border-0 h-100">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bold mb-4">Send Me a Message</h3>
+                            <form id="contactForm" class="d-flex flex-column gap-3">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Your Name</label>
+                                        <input type="text" class="form-control form-control-lg rounded-3" 
+                                               placeholder="John Doe" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Your Email</label>
+                                        <input type="email" class="form-control form-control-lg rounded-3" 
+                                               placeholder="john@example.com" required>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label fw-semibold">Subject</label>
+                                    <input type="text" class="form-control form-control-lg rounded-3" 
+                                           placeholder="Project Inquiry" required>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label fw-semibold">Message</label>
+                                    <textarea class="form-control form-control-lg rounded-3" 
+                                              placeholder="Your message here..." rows="6" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-0">© 2026 Muhammed Feyiz Güneş. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Contact form handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent! (This is a demo)');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
