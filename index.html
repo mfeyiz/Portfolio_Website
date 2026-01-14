@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
-                <img src="https://ui-avatars.com/api/?name=MF&background=ff014f&color=fff&size=50" 
+                <img src="photo.jpg" 
                      alt="Profile" class="rounded-circle" width="50" height="50">
                 <span class="fw-bold fs-4">MFG</span>
             </a>
@@ -37,8 +37,14 @@
     <section class="py-5 hero-section" style="min-height: 85vh;">
         <div class="container">
             <div class="row g-5 align-items-center">
-                <!-- Left: Text Content -->
-                <div class="col-lg-6">
+                <!-- Profile Image - Shows first on mobile -->
+                <div class="col-lg-6 order-1 order-lg-2 text-center">
+                    <img src="photo.jpg" 
+                         alt="Profile" class="img-fluid rounded-4 shadow profile-image">
+                </div>
+                
+                <!-- Text Content - Shows second on mobile -->
+                <div class="col-lg-6 order-2 order-lg-1">
                     <p class="text-uppercase text-muted mb-3 fade-in" style="font-size:14px;letter-spacing:2px">HOŞGELDİN AGA</p>
                     <h1 class="display-4 fw-bold mb-4 fade-in" style="animation-delay: 0.2s;">
                         Hi, I'm <span class="text-primary gradient-text">Muhammed Feyiz Güneş</span><br>
@@ -71,7 +77,7 @@
                         <!-- Skills -->
                         <div>
                             <h6 class="text-muted text-uppercase mb-3" style="font-size:12px;letter-spacing:1px">BEST SKILL ON</h6>
-                            <div class="d-flex gap-3">
+                            <div class="d-flex gap-3 justify-content-center justify-content-md-start">
                                 <div class="social-icon bg-white rounded-2 shadow-sm d-flex align-items-center justify-content-center">
                                     <i class="fab fa-python fs-5"></i>
                                 </div>
@@ -84,12 +90,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Right: Profile Image -->
-                <div class="col-lg-6 text-center">
-                    <img src="https://ui-avatars.com/api/?name=Muhammed+Feyiz&background=f8f9fa&color=333&size=400" 
-                         alt="Profile" class="img-fluid rounded-4 shadow" style="max-width:400px">
                 </div>
             </div>
         </div>
