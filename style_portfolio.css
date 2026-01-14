@@ -5,11 +5,28 @@
 /* Font family override - Applied to all elements */
 body {
     font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content should grow to push footer down */
+section {
+    flex: 1;
 }
 
 /* Narrow container for better readability - Override Bootstrap default */
 .container {
     max-width: 1000px !important;
+}
+
+/* Responsive container adjustments */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100% !important;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
 /* Custom brand color - Using #ff014f as primary color
@@ -202,4 +219,221 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #d4013f;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet and below */
+@media (max-width: 992px) {
+    .display-4 {
+        font-size: 2.5rem !important;
+    }
+    
+    .hero-section .display-4 {
+        font-size: 2rem !important;
+    }
+    
+    .lead {
+        font-size: 1rem !important;
+    }
+    
+    /* Stack project cards on tablet */
+    .project-item {
+        margin-bottom: 1rem;
+    }
+    
+    /* Adjust navbar spacing */
+    .navbar-nav {
+        gap: 1rem !important;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 768px) {
+    /* Smaller headings */
+    .display-4 {
+        font-size: 2rem !important;
+    }
+    
+    h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    h3 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Reduce padding on sections */
+    section {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    /* Hero section mobile text center */
+    .hero-section .col-lg-6 {
+        text-align: center;
+    }
+    
+    .hero-section h1,
+    .hero-section p {
+        text-align: center;
+    }
+    
+    /* Project images smaller on mobile */
+    .project-image-container img {
+        height: 150px;
+    }
+    
+    /* Single column for resume cards */
+    .col-md-6 {
+        margin-bottom: 1rem;
+    }
+    
+    /* Adjust card padding */
+    .card-body {
+        padding: 1.5rem !important;
+    }
+    
+    /* Filter buttons wrap better */
+    .filter-btn {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    /* Navbar brand smaller */
+    .navbar-brand img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .navbar-brand .fs-4 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Social icons smaller */
+    .social-icon {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1rem;
+    }
+    
+    /* PDF viewer height smaller on mobile */
+    #pdf-viewer iframe {
+        height: 400px !important;
+    }
+    
+    /* Modal full screen on mobile */
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+    
+    /* Mobile navbar items */
+    .navbar-collapse {
+        background: white;
+        padding: 1rem 0;
+        margin-top: 0.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-nav {
+        text-align: center;
+    }
+    
+    /* Buttons better on mobile */
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Small mobile phones */
+@media (max-width: 576px) {
+    .display-4 {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Hide some decorative elements on very small screens */
+    .hero-section {
+        min-height: auto !important;
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+    
+    /* Buttons full width on small screens */
+    .d-flex.gap-2 .btn:not(.btn-close) {
+        flex: 1 1 100%;
+    }
+    
+    /* Download and View PDF buttons stack */
+    .text-center .btn-lg {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .text-center .me-2 {
+        margin-right: 0 !important;
+    }
+    
+    /* Stats in project modal - stack them */
+    .modal-body .row.g-3 .col-6,
+    .modal-body .row.g-3 .col-md-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    /* Contact info cards full width */
+    .contact-section .d-flex.gap-3 {
+        flex-direction: column;
+    }
+    
+    /* Contact form inputs better spacing */
+    .form-control-lg {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+    
+    /* Resume progress bars text smaller */
+    .progress + .mb-3 span {
+        font-size: 0.85rem;
+    }
+    
+    /* Footer text smaller */
+    footer .small {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* Large screens - better centering */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1200px !important;
+    }
+    
+    /* Prevent cards from being too wide */
+    .project-card {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+/* Print styles - for resume page */
+@media print {
+    .navbar, footer, .btn {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
 }
