@@ -17,22 +17,48 @@ async function fetchProjects() {
             return;
         }
 
-        repos.forEach(repo => {
+        // Önce tüm README'leri paralel olarak getir
+        const repoWithImages = await Promise.all(repos.map(async (repo) => {
+            try {
+                const readmeResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/readme`, {
+                    headers: { 'Accept': 'application/vnd.github.v3.html' }
+                });
+                if (readmeResponse.ok) {
+                    const readmeHtml = await readmeResponse.text();
+                    // README'den ilk görseli bul
+                    const imgMatch = readmeHtml.match(/<img[^>]+src="([^"]+)"[^>]*>/i);
+                    if (imgMatch) {
+                        let imgUrl = imgMatch[1];
+                        // Relative path'leri düzelt
+                        if (!imgUrl.startsWith('http')) {
+                            imgUrl = `https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/${imgUrl}`;
+                        }
+                        repo.firstImage = imgUrl;
+                    }
+                }
+            } catch (e) {
+                // Görsel bulunamazsa devam et
+            }
+            return repo;
+        }));
+
+        repoWithImages.forEach(repo => {
             const col = document.createElement('div');
             col.className = 'col-md-6 col-lg-4 project-item';
             const allowedLanguages = ['JavaScript', 'Python', 'HTML', 'Jupyter Notebook'];
             const repoLang = repo.language || 'Other';
             col.dataset.language = allowedLanguages.includes(repoLang) ? repoLang : 'Other';
             
-            const imageUrl = getProjectImage(repo);
+            const imageUrl = repo.firstImage || 'https://via.placeholder.com/400x200/f8f9fa/6c757d?text=No+Image';
             
             col.innerHTML = `
                 <div class="card project-card shadow-sm border-0 h-100">
+                    <div class="project-image-container">
+                        <img src="${imageUrl}" alt="${repo.name}" onerror="this.src='https://via.placeholder.com/400x200/f8f9fa/6c757d?text=No+Image'">
+                        <span class="language-badge">${repo.language || 'Other'}</span>
+                    </div>
                     <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h5 class="card-title fw-bold mb-0 flex-grow-1 me-2">${repo.name}</h5>
-                            <span class="language-badge-inline flex-shrink-0">${repo.language || 'Other'}</span>
-                        </div>
+                        <h5 class="card-title fw-bold mb-3">${repo.name}</h5>
                         <p class="card-text text-muted mb-3 flex-grow-1">
                             ${repo.description || 'No description available.'}
                         </p>
@@ -43,7 +69,7 @@ async function fetchProjects() {
                             <span><i class="fas fa-clock"></i> ${getTimeAgo(repo.updated_at)}</span>
                         </div>
                         
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 mt-auto">
                             <button onclick='showProjectDetail(${JSON.stringify(repo).replace(/'/g, "\\'")})' 
                                     class="btn btn-primary btn-sm flex-grow-1">
                                 <i class="fas fa-info-circle"></i> Details
@@ -113,7 +139,7 @@ function setupFilters() {
 }
 
 async function showProjectDetail(repo) {
-    const imageUrl = getProjectImage(repo);
+    const imageUrl = repo.firstImage || 'https://via.placeholder.com/60x60/f8f9fa/6c757d?text=No+Image';
     
     let readmeContent = '';
     let hasReadmeImages = false;
@@ -124,6 +150,17 @@ async function showProjectDetail(repo) {
         if (readmeResponse.ok) {
             readmeContent = await readmeResponse.text();
             hasReadmeImages = readmeContent.includes('<img');
+            
+            // Relative path'leri düzelt
+            readmeContent = readmeContent.replace(
+                /<img([^>]+)src="([^"]+)"([^>]*)>/gi,
+                (match, before, src, after) => {
+                    if (!src.startsWith('http')) {
+                        src = `https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/${src}`;
+                    }
+                    return `<img${before}src="${src}"${after} onerror="this.style.display='none'">`;  
+                }
+            );
         }
     } catch (e) {
         readmeContent = '<p class="text-muted">README not available.</p>';
@@ -226,7 +263,7 @@ async function showProjectDetail(repo) {
                         ${readmeContent ? `
                         <div class="mb-4">
                             <h5 class="fw-semibold mb-3"><i class="fab fa-readme me-2"></i>README</h5>
-                            <div class="readme-content p-4 rounded-3 bg-light" style="max-height: 500px; overflow-y: auto; ${!hasReadmeImages ? 'display: none;' : ''}">
+                            <div class="readme-content p-4 rounded-3 bg-light" style="max-height: 500px; overflow-y: auto;">
                                 ${readmeContent}
                             </div>
                         </div>
