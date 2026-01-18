@@ -20,19 +20,19 @@ async function fetchProjects() {
         repos.forEach(repo => {
             const col = document.createElement('div');
             col.className = 'col-md-6 col-lg-4 project-item';
-            col.dataset.language = repo.language || 'Other';
+            const allowedLanguages = ['JavaScript', 'Python', 'HTML', 'Jupyter Notebook'];
+            const repoLang = repo.language || 'Other';
+            col.dataset.language = allowedLanguages.includes(repoLang) ? repoLang : 'Other';
             
             const imageUrl = getProjectImage(repo);
             
             col.innerHTML = `
                 <div class="card project-card shadow-sm border-0 h-100">
-                    <div class="project-image-container">
-                        <img src="${imageUrl}" class="card-img-top" alt="${repo.name}">
-                        <div class="language-badge">${repo.language || 'Unknown'}</div>
-                    </div>
-                    
                     <div class="card-body p-4 d-flex flex-column">
-                        <h5 class="card-title fw-bold mb-2">${repo.name}</h5>
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h5 class="card-title fw-bold mb-0 flex-grow-1 me-2">${repo.name}</h5>
+                            <span class="language-badge-inline flex-shrink-0">${repo.language || 'Other'}</span>
+                        </div>
                         <p class="card-text text-muted mb-3 flex-grow-1">
                             ${repo.description || 'No description available.'}
                         </p>
@@ -66,12 +66,7 @@ async function fetchProjects() {
 }
 
 function getProjectImage(repo) {
-    const colors = ['667eea', '764ba2', 'f093fb', '4facfe', '43e97b', 'fa709a', 'fee140', '30cfd0'];
-    const colorIndex = repo.name.length % colors.length;
-    const color1 = colors[colorIndex];
-    const color2 = colors[(colorIndex + 1) % colors.length];
-    
-    return `https://via.placeholder.com/400x250/${color1}/${color2}?text=${encodeURIComponent(repo.name)}`;
+    return null;
 }
 
 function getTimeAgo(date) {
@@ -121,12 +116,14 @@ async function showProjectDetail(repo) {
     const imageUrl = getProjectImage(repo);
     
     let readmeContent = '';
+    let hasReadmeImages = false;
     try {
         const readmeResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/readme`, {
             headers: { 'Accept': 'application/vnd.github.v3.html' }
         });
         if (readmeResponse.ok) {
             readmeContent = await readmeResponse.text();
+            hasReadmeImages = readmeContent.includes('<img');
         }
     } catch (e) {
         readmeContent = '<p class="text-muted">README not available.</p>';
@@ -229,7 +226,7 @@ async function showProjectDetail(repo) {
                         ${readmeContent ? `
                         <div class="mb-4">
                             <h5 class="fw-semibold mb-3"><i class="fab fa-readme me-2"></i>README</h5>
-                            <div class="readme-content p-4 rounded-3 bg-light" style="max-height: 500px; overflow-y: auto;">
+                            <div class="readme-content p-4 rounded-3 bg-light" style="max-height: 500px; overflow-y: auto; ${!hasReadmeImages ? 'display: none;' : ''}">
                                 ${readmeContent}
                             </div>
                         </div>
