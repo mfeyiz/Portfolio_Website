@@ -54,7 +54,7 @@ async function fetchProjects() {
             col.innerHTML = `
                 <div class="card project-card shadow-sm border-0 h-100">
                     <div class="project-image-container">
-                        <img src="${imageUrl}" alt="${repo.name}" onerror="this.src='https://via.placeholder.com/400x200/f8f9fa/6c757d?text=No+Image'">
+                        <img src="${imageUrl}" alt="${repo.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/f8f9fa/6c757d?text=No+Image'">
                         <span class="language-badge">${repo.language || 'Other'}</span>
                     </div>
                     <div class="card-body p-4 d-flex flex-column">
