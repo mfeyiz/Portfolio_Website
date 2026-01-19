@@ -49,12 +49,18 @@ async function fetchProjects() {
             const repoLang = repo.language || 'Other';
             col.dataset.language = allowedLanguages.includes(repoLang) ? repoLang : 'Other';
             
-            const imageUrl = repo.firstImage || 'https://via.placeholder.com/400x200/f8f9fa/6c757d?text=No+Image';
+            const imageUrl = repo.firstImage || null;
             
             col.innerHTML = `
                 <div class="card project-card shadow-sm border-0 h-100">
-                    <div class="project-image-container">
-                        <img src="${imageUrl}" alt="${repo.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/f8f9fa/6c757d?text=No+Image'">
+                    <div class="project-image-container ${!imageUrl ? 'no-image-gradient' : ''}">
+                        ${imageUrl ? `
+                            <img src="${imageUrl}" alt="${repo.name}" onerror="this.onerror=null; this.parentElement.classList.add('no-image-gradient'); this.style.display='none';">
+                        ` : `
+                            <div class="default-project-icon">
+                                <i class="fab fa-github fa-4x"></i>
+                            </div>
+                        `}
                         <span class="language-badge">${repo.language || 'Other'}</span>
                     </div>
                     <div class="card-body p-4 d-flex flex-column">
