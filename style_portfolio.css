@@ -13,6 +13,21 @@ section {
     max-width: 1000px !important;
 }
 
+.portfolio-navbar {
+    min-height: 74px;
+}
+
+@media (min-width: 992px) {
+    .portfolio-navbar .navbar-brand {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin: 0;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+}
+
 :root {
     --bs-primary: #ff014f;
     --bs-primary-rgb: 255, 1, 79;
