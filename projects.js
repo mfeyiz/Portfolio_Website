@@ -1,3 +1,54 @@
+const FALLBACK_PROJECTS = [
+    { name: 'Portfolio_Website', language: 'HTML', description: 'A responsive personal portfolio website built with Bootstrap 5 and vanilla JavaScript.', updated_at: '2026-08-02T10:27:17Z' },
+    { name: 'RAG-LangChain', language: 'Python', description: 'Retrieval-augmented generation experiments built with LangChain.', updated_at: '2026-07-13T12:12:57Z' },
+    { name: 'Debate-MultiAgent', language: 'Python', description: 'A multi-agent debate platform for argument analysis and improvement.', updated_at: '2026-06-13T13:45:18Z' },
+    { name: 'ML-Kernel-Library-ARM-Optimized-Design-for-Apple-Silicon', language: 'Python', description: 'Hardware-aware machine learning kernel library for Apple Silicon.', updated_at: '2026-04-30T21:40:07Z' },
+    { name: 'Tubitak-2209A-Argument-Mining-in-Turkish-', language: 'Python', description: 'TÜBİTAK 2209-A research on argument mining in Turkish texts.', updated_at: '2026-04-29T10:09:16Z' },
+    { name: 'Phishing-Domain-Detection-Benchmark-for-Different-Approaches', language: 'Python', description: 'Benchmarking approaches for phishing domain detection.', updated_at: '2026-04-17T08:20:15Z' },
+    { name: 'BudgetApp', language: 'JavaScript', description: 'Personal budgeting application.', updated_at: '2026-04-12T12:56:34Z' },
+    { name: 'Phishing-Domain-Detector', language: 'Other', description: 'Phishing domain detection project.', updated_at: '2026-03-24T09:13:03Z' },
+    { name: '3D_Graphics_Scene_OpenGL', language: 'Python', description: 'Interactive 3D graphics scene built with Python, OpenGL, and Pygame.', updated_at: '2026-01-18T18:55:28Z' },
+    { name: 'Retrieval-Augmented-Time-Series-Forecasting', language: 'Jupyter Notebook', description: 'Retrieval-augmented diffusion model for multivariate weather forecasting.', updated_at: '2026-01-18T18:14:12Z' },
+    { name: 'Financial-Fraud-Detection', language: 'Jupyter Notebook', description: 'Fraud detection with SMOTE and ensemble learning methods.', updated_at: '2026-01-18T17:54:10Z' },
+    { name: 'Spotify_Extended_Analysis', language: 'Jupyter Notebook', description: 'Spotify analysis using clustering, association rules, and forecasting.', updated_at: '2026-01-15T07:32:09Z' },
+    { name: '8086-Assembly-Calculator', language: 'Other', description: 'Two 8086 assembly calculator programs for DOS.', updated_at: '2025-12-05T14:17:49Z' },
+    { name: 'Libft-42-C_Library', language: 'Other', description: '42 School C library project focused on low-level programming.', updated_at: '2025-12-05T14:00:30Z' },
+    { name: 'Conference-Scheduling-and-Attendee-Site', language: 'Other', description: 'ASP.NET event site with registration and personalized schedules.', updated_at: '2025-12-01T10:04:19Z' },
+    { name: 'Intro_Programming_C_tortoise_game', language: 'Other', description: 'C programming game where a tortoise navigates a board.', updated_at: '2024-07-25T18:11:22Z' }
+];
+
+function getProjectLanguage(repo) {
+    const allowedLanguages = ['JavaScript', 'Python', 'HTML', 'Jupyter Notebook'];
+    return allowedLanguages.includes(repo.language) ? repo.language : 'Other';
+}
+
+function renderFallbackProjects(container) {
+    container.innerHTML = `
+        <div class="col-12">
+            <p class="text-center text-muted mb-1">Live GitHub data is temporarily unavailable. Showing saved project information.</p>
+        </div>
+        ${FALLBACK_PROJECTS.map(repo => `
+            <div class="col-md-6 col-lg-4 project-item" data-language="${getProjectLanguage(repo)}">
+                <div class="card project-card shadow-sm border-0 h-100">
+                    <div class="project-image-container no-image-gradient">
+                        <div class="default-project-icon"><i class="fab fa-github fa-4x"></i></div>
+                        <span class="language-badge">${repo.language}</span>
+                    </div>
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h5 class="card-title fw-bold mb-3">${repo.name}</h5>
+                        <p class="card-text text-muted mb-3 flex-grow-1">${repo.description}</p>
+                        <div class="text-muted small mb-3"><i class="fas fa-clock"></i> ${getTimeAgo(repo.updated_at)}</div>
+                        <a href="https://github.com/mfeyiz/${repo.name}" target="_blank" rel="noopener" class="btn btn-outline-primary btn-sm mt-auto">
+                            <i class="fab fa-github me-1"></i>View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `).join('')}
+    `;
+    setupFilters();
+}
+
 async function fetchProjects() {
     const username = 'mfeyiz';
     const container = document.getElementById('projects-container');
@@ -5,7 +56,9 @@ async function fetchProjects() {
     if (!container) return;
 
     try {
-        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=20`);
+        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`, {
+            headers: { 'Accept': 'application/vnd.github+json' }
+        });
         
         if (!response.ok) throw new Error('API error');
         
@@ -17,37 +70,13 @@ async function fetchProjects() {
             return;
         }
 
-        // Önce tüm README'leri paralel olarak getir
-        const repoWithImages = await Promise.all(repos.map(async (repo) => {
-            try {
-                const readmeResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/readme`, {
-                    headers: { 'Accept': 'application/vnd.github.v3.html' }
-                });
-                if (readmeResponse.ok) {
-                    const readmeHtml = await readmeResponse.text();
-                    // README'den ilk görseli bul
-                    const imgMatch = readmeHtml.match(/<img[^>]+src="([^"]+)"[^>]*>/i);
-                    if (imgMatch) {
-                        let imgUrl = imgMatch[1];
-                        // Relative path'leri düzelt
-                        if (!imgUrl.startsWith('http')) {
-                            imgUrl = `https://raw.githubusercontent.com/${repo.full_name}/${repo.default_branch}/${imgUrl}`;
-                        }
-                        repo.firstImage = imgUrl;
-                    }
-                }
-            } catch (e) {
-                // Görsel bulunamazsa devam et
-            }
-            return repo;
-        }));
+        // Initial loading uses one API request; README data is requested only when a visitor opens a project.
+        const repoWithImages = repos;
 
         repoWithImages.forEach(repo => {
             const col = document.createElement('div');
             col.className = 'col-md-6 col-lg-4 project-item';
-            const allowedLanguages = ['JavaScript', 'Python', 'HTML', 'Jupyter Notebook'];
-            const repoLang = repo.language || 'Other';
-            col.dataset.language = allowedLanguages.includes(repoLang) ? repoLang : 'Other';
+            col.dataset.language = getProjectLanguage(repo);
             
             const imageUrl = repo.firstImage || null;
             
@@ -93,7 +122,7 @@ async function fetchProjects() {
         
         setupFilters();
     } catch (error) {
-        container.innerHTML = '<p class="col-12 text-center text-danger py-5">Error loading projects. Please try again later.</p>';
+        renderFallbackProjects(container);
     }
 }
 

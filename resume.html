@@ -41,11 +41,14 @@
                     <i class="fas fa-download me-2"></i>Download PDF
                 </a>
                 <button class="btn btn-outline-primary btn-lg" onclick="togglePdfViewer()">
-                    <i class="fas fa-file-pdf me-2"></i>View PDF
+                    <i class="fas fa-file-pdf me-2"></i>Preview PDF
                 </button>
+                <a href="cv_muhammedfeyizgunes.pdf" target="_blank" rel="noopener" class="btn btn-outline-dark btn-lg ms-2">
+                    <i class="fas fa-up-right-from-square me-2"></i>Open Full PDF
+                </a>
             </div>
             
-            <div id="pdf-viewer" class="card shadow-lg border-0 mb-5" style="display: none;">
+            <div id="pdf-viewer" class="card shadow-lg border-0 mb-5 resume-pdf-viewer" style="display: none;">
                 <div class="card-body p-2">
                     <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
                         <h5 class="mb-0"><i class="fas fa-file-pdf text-danger me-2"></i>Resume PDF</h5>
@@ -53,7 +56,7 @@
                             <i class="fas fa-times"></i> Close
                         </button>
                     </div>
-                    <iframe src="cv_muhammedfeyizgunes.pdf" width="100%" height="600" style="border: none;"></iframe>
+                    <iframe src="cv_muhammedfeyizgunes.pdf" title="Muhammed Feyiz Güneş Resume PDF" width="100%" style="border: none;"></iframe>
                 </div>
             </div>
             
@@ -64,7 +67,7 @@
                             <h3 class="text-primary mb-4"><i class="fas fa-graduation-cap me-2"></i>Education</h3>
                             <div class="timeline">
                                 <div class="mb-4 pb-4 border-bottom">
-                                    <h5 class="fw-semibold mb-2">Computer Engineering - GPA: 3.59</h5>
+                                    <h5 class="fw-semibold mb-2">Computer Engineering - GPA: 3.59 (Graduated 3rd in the Department)</h5>
                                     <p class="text-muted small mb-2"><i class="fas fa-calendar me-2"></i>September 2022 - July 2026</p>
                                     <p class="mb-0">Istanbul Commerce University</p>
                                 </div>
