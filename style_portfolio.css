@@ -206,9 +206,10 @@ html {
     width: 100%;
 }
 
-.resume-pdf-viewer iframe {
-    height: calc(100vh - 140px);
-    min-height: 760px;
+.resume-pdf-preview {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 @media (max-width: 992px) {
@@ -218,9 +219,6 @@ html {
         display: block;
     }
 
-    .resume-pdf-viewer iframe {
-        min-height: 620px;
-    }
 }
 
 .readme-content {
